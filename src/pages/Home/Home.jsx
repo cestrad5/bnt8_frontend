@@ -62,7 +62,7 @@ const Home = () => {
           <Zoom>
             <div className='hero-slogan'>
               <h1>
-                Experiencias creadas con madera y amor
+                Experiencias creadas con madera y mucho amor
               </h1>
             </div>
           </Zoom>
