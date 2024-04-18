@@ -6,7 +6,7 @@ This is the frontend for the Bonetto Sales Tool application built with React and
 
 ## Table of Contents
 
-- [Overview](#📚-overview)
+- [Overview]( #📚-overview)
 - [Technologies Used](#🛠-technologies-used)
 - [Features](#🎁-features)
 - [Installation](#💻-installation)
