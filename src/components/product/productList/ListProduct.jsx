@@ -36,6 +36,7 @@ const ProductDetail = ({ products }) => {
       {/* Display filtered products */}
       {products
         .filter((product) => (selectedCategory === "Todos" || product.category === selectedCategory) && product.quantity > 0)
+        .sort((a, b) => a.sku - b.sku)
         .map((product) => (
           <CardSales key={product._id} product={product} selectedCategory={selectedCategory} />
         ))}
