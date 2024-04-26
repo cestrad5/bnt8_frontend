@@ -110,74 +110,72 @@ const SalesOrder = () => {
     );
   };
 
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
+  const [isConfirmingOrder, setIsConfirmingOrder] = useState(false);
+  
   /**
    * Handles confirmation of the order.
    */
-  const handleConfirmOrder = () => {
-    if(!customerName){
+  const handleConfirmOrder = async () => {
+    if (!customerName) {
       toast.error("Por favor digite el nombre del cliente");
       return;
     }
-
+  
+    // Verifica si el pedido ya está siendo confirmado o ya ha sido confirmado
+    if (isConfirmingOrder || isOrderConfirmed) {
+      return;
+    }
+  
+    setIsConfirmingOrder(true);
+  
     const orderData = orderItems.map((item) => ({
       product: item.productId,
       quantity: orderQuantities[item.productId] || item.quantity,
       total: (orderQuantities[item.productId] || item.quantity) * item.price,
     }));
-
+  
     const totalFinal = orderItems.reduce((acc, item) => {
       const updatedQuantity = orderQuantities[item.productId] || item.quantity;
       return acc + item.quantity * item.price;
     }, 0);
-
+  
     const orderInfo = {
       customer: customerName,
       note: comments,
       total: totalFinal,
       order: orderData,
     };
-
-    toast.info(
-      <div className="confirmation-notification">
-        ¿Deseas confirmar el pedido?
-        <br />
-        <div className='accept-button' onClick={ async () => {
-          try {
-            await axios.post(API_URL, orderInfo );
-            Object.keys(localStorage)
-            .filter((key) => key.startsWith("orderItem-"))
-            .forEach((key) => localStorage.removeItem(key));
-
-            loadOrderItems();
-            toast.dismiss();
-            toast.success("Pedido confirmado");
-            navigate('/dashboard');
-          } catch (error) {
-            console.log(error);
-          }
-        }}
-        >Aceptar</div>
-        
-        <div 
-          className='cancel-button'
-          onClick={() => {
-            toast.dismiss();
-          }}
-        >
-          Cancelar
-        </div>
-      </div>,
-      {
-        position: "bottom-center",
-        autoClose: 5000,
-        closeOnClick: false,
-        hideProgressBar: true,
-        pauseOnHover: true,
-        draggable: false,
-        closeButton: false,
-      }
-    );
+  
+    try {
+      await axios.post(API_URL, orderInfo);
+      Object.keys(localStorage)
+        .filter((key) => key.startsWith("orderItem-"))
+        .forEach((key) => localStorage.removeItem(key));
+  
+      loadOrderItems();
+      toast.success("Pedido confirmado");
+      navigate('/dashboard');
+      setIsOrderConfirmed(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // Habilita el botón de confirmación después de un breve período de tiempo
+      setTimeout(() => {
+        setIsConfirmingOrder(false);
+      }, 1000); // 1000 milisegundos = 1 segundo
+    }
   };
+  
+  // En el renderizado, deshabilita el botón de confirmación si el pedido ya ha sido confirmado o está siendo confirmado
+  <button
+    className="order-confirm"
+    onClick={handleConfirmOrder}
+    disabled={isOrderConfirmed || isConfirmingOrder} // Deshabilita el botón si el pedido ya ha sido confirmado o está siendo confirmado
+  >
+    Confirmar Pedido
+  </button>
+    
 
   /**
    * Handles removal of all products from the order.
