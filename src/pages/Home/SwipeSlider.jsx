@@ -7,6 +7,9 @@ import img1012 from '../../assets/1012.png';
 import img7026 from '../../assets/7026.png';
 import img2017 from '../../assets/2017.png';
 import img7025 from '../../assets/7025.png';
+import img1019 from '../../assets/1019.png';
+import img1020 from '../../assets/1020.png';
+import img2009 from '../../assets/2009.png';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
@@ -51,8 +54,9 @@ const SwipeSlider = () => {
         <SwiperSlide><img src={img1012} alt='Img producto'/></SwiperSlide>
         <SwiperSlide><img src={img2017} alt='Img producto'/></SwiperSlide>
         <SwiperSlide><img src={img3010} alt='Img producto'/></SwiperSlide>
-        <SwiperSlide><img src={img7025} alt='Img producto'/></SwiperSlide>
-        <SwiperSlide><img src={img7026} alt='Img producto'/></SwiperSlide>
+        <SwiperSlide><img src={img1019} alt='Img producto'/></SwiperSlide>
+        <SwiperSlide><img src={img1020} alt='Img producto'/></SwiperSlide>
+        <SwiperSlide><img src={img2009} alt='Img producto'/></SwiperSlide>
 
         {/* Progress Circle */}
         <div className="autoplay-progress" slot="container-end">
