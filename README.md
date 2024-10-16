@@ -1,7 +1,6 @@
 ![Landing page capture](../frontend/src/assets/Screenshot3.png)
 
-# Bonetto Sales Tool Frontend v3
-
+# Bonetto Sales Tool Frontend v3.1
 This is the frontend for the Bonetto Sales Tool application built with React and Redux.
 
 ## Table of Contents
